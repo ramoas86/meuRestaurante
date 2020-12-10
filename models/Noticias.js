@@ -31,6 +31,10 @@ class Noticias {
   }
 
   insertNoticias(titulo, texto){
+
+    let data = new Date();
+    let dataStr = data.toString()
+
     MongoClient.connect(url, (err, client) => {
       console.log("Connected successfully to server");
 
@@ -42,11 +46,13 @@ class Noticias {
         //Insert document.
         collection.insertMany([
             {
-             titulo: titulo,
-             texto: texto,
+              data: dataStr,
+              titulo: titulo,
+              texto: texto,
             }
          ], (err, result) => {
            console.log("Inserted document into the collection.");
+           console.log(result);
            callback(result);
          });
       }
