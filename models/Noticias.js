@@ -7,59 +7,54 @@ class Noticias {
 
   }
 
-  getNoticias(){
+  getNoticias(res){
+
     MongoClient.connect(url, (err, client) => {
-      console.log("Connected successfully to server");
+      if (err) throw err;
 
       const db = client.db(dbName);
 
-      const findDocument = (db, callback) => {
-        // Get the documents collection
-        const collection = db.collection('noticias');
-        // Find some documents
-        collection.find({}).toArray(function(err, docs) {
-          console.log("Found the following records");
-          console.log(docs)
-          callback(docs);
-        });
-      }
+      db.collection('noticias').find().toArray((err, result) => {
+        if (err) throw err;
 
-      findDocument(db, () => {
+        console.log(result);
+        res.render('index', {noticias: result});
         client.close();
-      })
+      });
     });
   }
 
-  insertNoticias(titulo, texto){
+  insertNoticias(req, res){
 
     let data = new Date();
     let dataStr = data.toString()
+    const body = req.body;
 
     MongoClient.connect(url, (err, client) => {
-      console.log("Connected successfully to server");
+      if (err) throw err;
 
       const db = client.db(dbName);
 
-      const insertDocument = (db, callback) => {
-        // Get the documents collection
-        const collection = db.collection('noticias');
-        //Insert document.
-        collection.insertMany([
-            {
-              data: dataStr,
-              titulo: titulo,
-              texto: texto,
-            }
-         ], (err, result) => {
-           console.log("Inserted document into the collection.");
-           console.log(result);
-           callback(result);
-         });
-      }
+      db.collection('noticias').insertMany([
+          {
+            data: dataStr,
+            titulo: body.titulo,
+            texto: body.texto,
+          }
+       ], (err, result) => {
+         if (err) throw err;
+         console.log(result);
 
-      insertDocument(db, () => {
-        client.close();
-      })
+         res.render('inserirNoticia', {
+           msg:{
+             alert: 'Noticia inserida com sucesso!',
+             titulo: body.titulo,
+             texto: body.texto,
+           }
+         });
+
+         client.close();
+       });
     });
   }
 }

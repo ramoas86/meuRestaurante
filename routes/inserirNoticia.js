@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const inserirNoticiaController = require('../controllers/inserirNoticiaController')
+
+const Noticias = require('../models/Noticias');
 
 router.get('/', (req, res, next) => {
-  inserirNoticiaController(req, res);
+  res.render('inserirNoticia', {msg: {}});
 });
 
 router.post('/', (req, res, next) => {
-  inserirNoticiaController(req, res);
+  const noticiasDAO = new Noticias();
+  const body = req.body;
+  noticiasDAO.insertNoticias(req, res);
 });
 
 module.exports = router;

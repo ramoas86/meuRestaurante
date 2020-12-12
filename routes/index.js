@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const indexController = require('../controllers/indexController')
+
+const Noticias = require('../models/Noticias');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  indexController(req, res);
+  const noticiasDAO = new Noticias();
+  noticiasDAO.getNoticias(res);
 });
 
 module.exports = router;
