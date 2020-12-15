@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%- include('common/headContent', {titulo: 'Inserir Item Cardápio'}) %>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <% if (msg.alert){ %>
+        <div class="alert alert-success mt-2 mb-4" role="alert">
+          <%= msg.alert %>
+
+          <ul>
+            <li> Categoria: <%= msg.categoria %> </li>
+            <li> Nome: <%= msg.nome %> </li>
+            <li> Valor: <%= msg.valor %>,<%= msg.valorCentavos1 %><%= msg.valorCentavos2 %> </li>
+            <li> Descrição: <%= msg.descricao %> </li>
+          </ul>
+        </div>
+      <% } %>
+
+      <form id ='formulario' action="/inserir_item_cardapio" method="post">
+
+        <div class="mb-3">
+          <label class="form-label">Categoria</label>
+
+          <select name="categoria" id="categoria" class="form-select" aria-label="Default select example" required>
+            <% for (cat of categorias){ %>
+              <option value=<%= cat %>> <%= cat %> </option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Nome</label>
+          <input type="text" class="form-control" name="nome" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Valor</label>
+          <div class="d-flex flex-row w-25">
+            <p class="me-2">R$</p>
+            <input type="number" class="form-control" name="valor"  min="0" placeholder="0" required>
+            <p class="me-2 ms-2">, </p>
+            <select name="valorCentavos1" id="valorCentavos1" class="form-select" aria-label="Default select example" required>
+              <% for (let i = 0; i <= 9; i++){ %>
+                <option value=<%= i %>> <%= i %> </option>
+              <% } %>
+            </select>
+            <select name="valorCentavos2" id="valorCentavos2" class="form-select" aria-label="Default select example" required>
+              <% for (let i = 0; i <= 9; i++){ %>
+                <option value=<%= i %>> <%= i %> </option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Descrição</label>
+          <textarea class="form-control" name="descricao" rows="8" cols="60" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+
+    </div>
+
+  </body>
+</html>
