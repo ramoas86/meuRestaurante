@@ -16,8 +16,6 @@ class Cardapio {
 
   insertItemCardapio(req, res){
 
-    const body = req.body;
-
     MongoClient.connect(url, (err, client) => {
       if (err) throw err;
 
@@ -25,13 +23,13 @@ class Cardapio {
 
       db.collection('cardapio').insertMany([
           {
-            categoria: body.categoria,
-            urlImagem: body.urlImagem,
-            nome: body.nome,
-            valor: body.valor,
-            valorCentavos1: body.valorCentavos1,
-            valorCentavos2: body.valorCentavos2,
-            descricao: body.descricao,
+            categoria: req.body.categoria,
+            fotoUrl: req.file.path,
+            nome: req.body.nome,
+            valor: req.body.valor,
+            valorCentavos1: req.body.valorCentavos1,
+            valorCentavos2: req.body.valorCentavos2,
+            descricao: req.body.descricao,
           }
        ], (err, result) => {
          if (err) throw err;
@@ -40,13 +38,13 @@ class Cardapio {
          res.render('inserirItemCardapio', {
            msg:{
              alert: 'Item do cardápio inserido com sucesso!',
-             categoria: body.categoria,
-             urlImagem: body.urlImagem,
-             nome: body.nome,
-             valor: body.valor,
-             valorCentavos1: body.valorCentavos1,
-             valorCentavos2: body.valorCentavos2,
-             descricao: body.descricao,
+             categoria: req.body.categoria,
+             fotoUrl: req.file.path,
+             nome: req.body.nome,
+             valor: req.body.valor,
+             valorCentavos1: req.body.valorCentavos1,
+             valorCentavos2: req.body.valorCentavos2,
+             descricao: req.body.descricao,
            },
            categorias: cardapioDAO.categorias,
          });

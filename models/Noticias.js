@@ -28,7 +28,6 @@ class Noticias {
 
     let data = new Date();
     let dataStr = data.toString()
-    const body = req.body;
 
     MongoClient.connect(url, (err, client) => {
       if (err) throw err;
@@ -38,8 +37,8 @@ class Noticias {
       db.collection('noticias').insertMany([
           {
             data: dataStr,
-            titulo: body.titulo,
-            texto: body.texto,
+            titulo: req.body.titulo,
+            texto: req.body.texto,
           }
        ], (err, result) => {
          if (err) throw err;
@@ -48,8 +47,8 @@ class Noticias {
          res.render('inserirNoticia', {
            msg:{
              alert: 'Noticia inserida com sucesso!',
-             titulo: body.titulo,
-             texto: body.texto,
+             titulo: req.body.titulo,
+             texto: req.body.texto,
            }
          });
 
