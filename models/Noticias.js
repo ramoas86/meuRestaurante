@@ -17,9 +17,9 @@ class Noticias {
       db.collection('noticias').find().toArray((err, result) => {
         if (err) throw err;
 
+        client.close();
         //console.log(result);
         res.render('index', {noticias: result});
-        client.close();
       });
     });
   }

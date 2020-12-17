@@ -14,6 +14,47 @@ class Cardapio {
     ];
   }
 
+  getCardapio(res){
+
+    MongoClient.connect(url, (err, client) => {
+      if (err) throw err;
+
+      const db = client.db(dbName);
+
+      db.collection('cardapio').find().toArray((err, result) => {
+        if (err) throw err;
+
+        client.close();
+
+        const cardapio = {}
+
+        for (let cat of this.categorias){
+          cardapio[cat] = [];
+        }
+
+        for (let cat in cardapio){
+          for (let item of result) {
+            if (cat == item.categoria){
+              /*
+              tratar URL para uso na página. O caminho para a foto deve ser a
+              subpasta 'fotosCadapio' e o nome do arquivo da foto. Utilizarei
+              a função slice para remover 'uploads/' da string.
+              */
+              let newFotoUrl = item.fotoUrl.slice(7, item.fotoUrl.length);
+              item.fotoUrl = newFotoUrl;
+
+              cardapio[cat].push(item);
+            }
+          }
+        }
+
+        //console.log(cardapio);
+
+        res.render('cardapio', {cardapio: cardapio});
+      });
+    });
+  }
+
   insertItemCardapio(req, res){
 
     MongoClient.connect(url, (err, client) => {
@@ -33,7 +74,7 @@ class Cardapio {
           }
        ], (err, result) => {
          if (err) throw err;
-         console.log(result);
+         //console.log(result);
 
          res.render('inserirItemCardapio', {
            msg:{
@@ -46,7 +87,7 @@ class Cardapio {
              valorCentavos2: req.body.valorCentavos2,
              descricao: req.body.descricao,
            },
-           categorias: cardapioDAO.categorias,
+           categorias: this.categorias,
          });
 
          client.close();

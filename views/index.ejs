@@ -40,10 +40,10 @@
         }
       %>
 
-      <% for (linha of noticiasArray) { %>
+      <% for (let linha of noticiasArray) { %>
         <div class='noticias d-flex flex-column'>
           <div class='d-flex flex-row mb-4 justify-content-around'>
-            <% for (coluna of linha) { %>
+            <% for (let coluna of linha) { %>
               <div class="card me-4" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title"><%= coluna.titulo %></h5>

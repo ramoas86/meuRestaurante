@@ -9,38 +9,21 @@
       <%- include('./common/menu') %>
 
       <div class="cardapio-categoria mt-4">
-        <% for (categoria of categorias) { %>
+        <% for (let categoria in cardapio) { %>
           <div class="categoria">
             <h4 class="text-primary border-bottom border-primary"><%= categoria %></h4>
-
-            <div class="categoria-cards">
-
+            <% let itensDaCategoria = cardapio[categoria];%>
+            <% for (item of itensDaCategoria){ %>
               <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
+                <img src="<%= item.fotoUrl%>" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">Comida 1</h5>
+                  <h5 class="card-title"><%= item.nome %></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">R$ <%= item.valor %>,<%= item.valorCentavos1 %><%= item.valorCentavos2 %></h6>
                   <a href="#" class="btn btn-primary">Detalhes</a>
+                  <a href="#" class="btn btn-success">Adicionar</a>
                 </div>
               </div>
-
-              <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Comida 2</h5>
-                  <a href="#" class="btn btn-primary">Detalhes</a>
-                </div>
-              </div>
-
-              <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Comida 3</h5>
-                  <a href="#" class="btn btn-primary">Detalhes</a>
-                </div>
-              </div>
-
-            </div>
-
+            <% } %>
           </div>
         <% } %>
       </div>
