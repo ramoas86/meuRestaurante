@@ -8,27 +8,32 @@
     <div class="container">
       <%- include('./common/menu') %>
 
-      <div class="cardapio-categoria mt-4">
-        <% for (let categoria in cardapio) { %>
-          <h4 class="text-primary border-bottom border-primary"><%= categoria %></h4>
+      <% if (params.categoria) {%>
+        <div class="cardapio-categoria mt-4">
+        <h4 class="text-primary border-bottom border-primary"><%= params.categoria %></h4>
 
-          <div class="categoria mb-4 justify-content-center d-flex flex-row">
-            <% let itensDaCategoria = cardapio[categoria];%>
-            <% for (item of itensDaCategoria){ %>
-              <div class="card me-2" style="width: 18rem;">
-                <img src="<%= item.fotoUrl%>" class="card-img-top">
-                <div class="card-body">
-                  <h5 class="card-title"><%= item.nome %></h5>
-                  <h6 class="card-subtitle mb-2 text-muted">R$ <%= item.valor %>,<%= item.valorCentavos1 %><%= item.valorCentavos2 %></h6>
-                  <a href="#" class="btn btn-primary">Detalhes</a>
-                  <a href="#" class="btn btn-success">Adicionar</a>
-                </div>
-              </div>
-            <% } %>
+        <% for (let item of itensCartegoriaCardapio){ %>
+          <div class="card me-2" style="width: 18rem;">
+            <img src="<%= item.fotoUrl%>" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title"><%= item.nome %></h5>
+              <h6 class="card-subtitle mb-2 text-muted">R$ <%= item.valor %>,<%= item.valorCentavos1 %><%= item.valorCentavos2 %></h6>
+              <a href="#" class="btn btn-primary">Detalhes</a>
+              <a href="#" class="btn btn-success">Adicionar</a>
+            </div>
           </div>
-
         <% } %>
-      </div>
+        </div>
+      <% } else {%>
+        <div class="d-flex mt-4 mb-4 flex-column align-items-center">
+          <% for (let cat of categoriasDAO) {%>
+            <h3>
+              <a href="cardapio/<%= cat %>" class=""><%= cat %></a>
+            </h3>
+          <% } %>
+        </div>
+      <% } %>
+
 
     </div>
 
