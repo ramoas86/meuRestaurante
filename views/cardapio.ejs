@@ -10,12 +10,13 @@
 
       <div class="cardapio-categoria mt-4">
         <% for (let categoria in cardapio) { %>
-          <div class="categoria">
-            <h4 class="text-primary border-bottom border-primary"><%= categoria %></h4>
+          <h4 class="text-primary border-bottom border-primary"><%= categoria %></h4>
+
+          <div class="categoria mb-4 justify-content-center d-flex flex-row">
             <% let itensDaCategoria = cardapio[categoria];%>
             <% for (item of itensDaCategoria){ %>
-              <div class="card" style="width: 18rem;">
-                <img src="<%= item.fotoUrl%>" class="card-img-top" alt="...">
+              <div class="card me-2" style="width: 18rem;">
+                <img src="<%= item.fotoUrl%>" class="card-img-top">
                 <div class="card-body">
                   <h5 class="card-title"><%= item.nome %></h5>
                   <h6 class="card-subtitle mb-2 text-muted">R$ <%= item.valor %>,<%= item.valorCentavos1 %><%= item.valorCentavos2 %></h6>
@@ -25,6 +26,7 @@
               </div>
             <% } %>
           </div>
+
         <% } %>
       </div>
 
