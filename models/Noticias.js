@@ -17,9 +17,31 @@ class Noticias {
       db.collection('noticias').find().toArray((err, result) => {
         if (err) throw err;
 
+        /*
+        criar matrix para renderização na view.
+        */
+        const noticiasArray = [];
+        let arrayLinha = [];
+        let indexColeta = 2;
+
+        for (let i = 0; i < result.length; i++) {
+          if (i <= indexColeta){
+            arrayLinha.push(result[i]);
+            if (i == indexColeta){
+              noticiasArray.push(arrayLinha);
+              arrayLinha = [];
+              indexColeta += 3;
+            }
+          }
+        }
+
+        if (arrayLinha.length > 0){
+          noticiasArray.push(arrayLinha);
+        }
+
         client.close();
         //console.log(result);
-        res.render('index', {noticias: result});
+        res.render('index', {noticias: noticiasArray});
       });
     });
   }

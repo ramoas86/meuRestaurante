@@ -26,8 +26,6 @@ class Cardapio {
       db.collection('cardapio').find({categoria: categoriaParam}).toArray((err, result) => {
         if (err) throw err;
 
-        client.close();
-
         /*
         tratar a URL das fotos para remover 'uploads/'.
         */
@@ -36,9 +34,33 @@ class Cardapio {
           item.fotoUrl = newFotoUrl;
         }
 
+        /*
+        criar matrix para renderização na view.
+        */
+        const cardapioCatArray = [];
+        let arrayLinha = [];
+        let indexColeta = 2;
+
+        for (let i = 0; i < result.length; i++) {
+          if (i <= indexColeta){
+            arrayLinha.push(result[i]);
+            if (i == indexColeta){
+              cardapioCatArray.push(arrayLinha);
+              arrayLinha = [];
+              indexColeta += 3;
+            }
+          }
+        }
+
+        if (arrayLinha.length > 0){
+          cardapioCatArray.push(arrayLinha);
+        }
+
+        client.close();
+
         res.render('cardapio', {
           params: req.params,
-          itensCartegoriaCardapio: result,
+          itensCartegoriaCardapio: cardapioCatArray,
         });
 
       });

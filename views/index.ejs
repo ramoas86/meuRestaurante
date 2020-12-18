@@ -19,28 +19,7 @@
         <h3>Notícias</h3>
       </div>
 
-      <%
-        const noticiasArray = [];
-        let arrayLinha = [];
-        let indexColeta = 2;
-
-        for (let i = 0; i < noticias.length; i++) {
-          if (i <= indexColeta){
-            arrayLinha.push(noticias[i]);
-            if (i == indexColeta){
-              noticiasArray.push(arrayLinha);
-              arrayLinha = [];
-              indexColeta += 3;
-            }
-          }
-        }
-
-        if (arrayLinha.length > 0){
-          noticiasArray.push(arrayLinha);
-        }
-      %>
-
-      <% for (let linha of noticiasArray) { %>
+      <% for (let linha of noticias) { %>
         <div class='noticias d-flex flex-column align-items-center'>
           <div class='d-flex flex-row mb-4 align-items-center'>
             <% for (let coluna of linha) { %>
