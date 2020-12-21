@@ -17,11 +17,12 @@
             <div class='d-flex flex-row mb-4 align-items-center'>
               <% for (let coluna of linha) { %>
                 <div class="card me-2" style="width: 18rem;">
-                  <img src="<%= coluna.fotoUrl%>" class="card-img-top">
+                  <a href="<%= params.categoria %>/<%= coluna._id %>">
+                    <img src="<%= coluna.fotoUrl%>" class="card-img-top">
+                  </a>
                   <div class="card-body">
                     <h5 class="card-title"><%= coluna.nome %></h5>
                     <h6 class="card-subtitle mb-2 text-muted">R$ <%= coluna.valor %>,<%= coluna.valorCentavos1 %><%= coluna.valorCentavos2 %></h6>
-                    <a href="#" class="btn btn-primary">Detalhes</a>
                     <a href="#" class="btn btn-success">Adicionar</a>
                   </div>
                 </div>

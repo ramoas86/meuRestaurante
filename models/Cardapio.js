@@ -2,6 +2,8 @@ const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
 const dbName = 'meuRestaurante';
 
+const ObjectId = require('mongodb').ObjectId;
+
 class Cardapio {
   constructor() {
     this.categorias = [
@@ -61,6 +63,39 @@ class Cardapio {
         res.render('cardapio', {
           params: req.params,
           itensCartegoriaCardapio: cardapioCatArray,
+        });
+
+      });
+    });
+  }
+
+  getItemCardapio(req, res){
+
+    MongoClient.connect(url, (err, client) => {
+      if (err) throw err;
+
+      const db = client.db(dbName);
+
+      const id_prato = ObjectId(req.params.id_prato);
+
+      db.collection('cardapio').find({_id: id_prato}).toArray((err, result) => {
+        if (err) throw err;
+
+        client.close();
+
+        /*
+        tratar a URL das fotos para remover 'uploads/'.
+        */
+        let newFotoUrl = result[0].fotoUrl.slice(7, result[0].fotoUrl.length);
+        result[0].fotoUrl = newFotoUrl;
+
+        res.render('itemCardapioDetalhes', {
+          fotoUrl: result[0].fotoUrl,
+          nome: result[0].nome,
+          valor: result[0].valor,
+          valorCentavos1: result[0].valorCentavos1,
+          valorCentavos2: result[0].valorCentavos2,
+          descricao: result[0].descricao,
         });
 
       });

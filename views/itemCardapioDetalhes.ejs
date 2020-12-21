@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <head>
+      <%- include('./common/headContent', {titulo: nome}) %>
+    </head>
+  </head>
+  <body>
+    <div class="container">
+
+      <%- include('./common/menu') %>
+
+      <div class="mt-4 d-flex flex-row">
+        <div class="w-50">
+          <img src="<%= fotoUrl %>" class="w-100">
+        </div>
+        <div class="w-50 ms-4">
+          <h4 class="mt-4"><%= nome %></h4>
+          <h5 class="mt-4 mb-4">Valor: R$<%= valor %>,<%= valorCentavos1 %><%= valorCentavos2 %></h5>
+          <pre><%= descricao %></pre>
+          <a href="#" class="btn btn-success mb-2">Adicionar</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -16,4 +16,9 @@ router.get('/:categoria', (req, res, next) => {
   cardapioDAO.getCardapio(req, res);
 });
 
+router.get('/:categoria/:id_prato', (req, res, next) => {
+  const cardapioDAO = new Cardapio();
+  cardapioDAO.getItemCardapio(req, res);
+});
+
 module.exports = router;
