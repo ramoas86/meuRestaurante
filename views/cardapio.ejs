@@ -23,7 +23,9 @@
                   <div class="card-body">
                     <h5 class="card-title"><%= coluna.nome %></h5>
                     <h6 class="card-subtitle mb-2 text-muted">R$ <%= coluna.valor %>,<%= coluna.valorCentavos1 %><%= coluna.valorCentavos2 %></h6>
-                    <a href="#" class="btn btn-success">Adicionar</a>
+                    <a href="#" class="btn btn-success mb-2">
+                      <img src="/images/icons/cart-plus.svg" width="20" height="20" title="cart">
+                    </a>
                   </div>
                 </div>
               <% } %>
@@ -41,7 +43,6 @@
           <% } %>
         </div>
       <% } %>
-
 
     </div>
 
