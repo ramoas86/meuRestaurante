@@ -4,6 +4,40 @@ const dbName = 'meuRestaurante';
 
 const ObjectId = require('mongodb').ObjectId;
 
+function gerarArrayCardapioCategoria(result){
+  /*
+  tratar a URL das fotos para remover 'uploads/'.
+  */
+  for (let item of result){
+    let newFotoUrl = item.fotoUrl.slice(7, item.fotoUrl.length);
+    item.fotoUrl = newFotoUrl;
+  }
+
+  /*
+  criar matrix para renderização na view.
+  */
+  const cardapioCatArray = [];
+  let arrayLinha = [];
+  let indexColeta = 2;
+
+  for (let i = 0; i < result.length; i++) {
+    if (i <= indexColeta){
+      arrayLinha.push(result[i]);
+      if (i == indexColeta){
+        cardapioCatArray.push(arrayLinha);
+        arrayLinha = [];
+        indexColeta += 3;
+      }
+    }
+  }
+
+  if (arrayLinha.length > 0){
+    cardapioCatArray.push(arrayLinha);
+  }
+
+  return cardapioCatArray
+}
+
 class Cardapio {
   constructor() {
     this.categorias = [
@@ -28,35 +62,7 @@ class Cardapio {
       db.collection('cardapio').find({categoria: categoriaParam}).toArray((err, result) => {
         if (err) throw err;
 
-        /*
-        tratar a URL das fotos para remover 'uploads/'.
-        */
-        for (let item of result){
-          let newFotoUrl = item.fotoUrl.slice(7, item.fotoUrl.length);
-          item.fotoUrl = newFotoUrl;
-        }
-
-        /*
-        criar matrix para renderização na view.
-        */
-        const cardapioCatArray = [];
-        let arrayLinha = [];
-        let indexColeta = 2;
-
-        for (let i = 0; i < result.length; i++) {
-          if (i <= indexColeta){
-            arrayLinha.push(result[i]);
-            if (i == indexColeta){
-              cardapioCatArray.push(arrayLinha);
-              arrayLinha = [];
-              indexColeta += 3;
-            }
-          }
-        }
-
-        if (arrayLinha.length > 0){
-          cardapioCatArray.push(arrayLinha);
-        }
+        let cardapioCatArray = gerarArrayCardapioCategoria(result);
 
         client.close();
 
@@ -97,6 +103,32 @@ class Cardapio {
           valorCentavos2: result[0].valorCentavos2,
           descricao: result[0].descricao,
         });
+
+      });
+    });
+  }
+
+  adicionarItemAoCarrinho(req, res){
+
+    MongoClient.connect(url, (err, client) => {
+      if (err) throw err;
+
+      const db = client.db(dbName);
+
+      const id_prato = ObjectId(req.query.id);
+
+      db.collection('cardapio').find({_id: id_prato}).toArray((err, result) => {
+        if (err) throw err;
+
+        client.close();
+
+        req.session.usuario.carrinho.push(result[0]);
+
+        console.log(req.session);
+
+        let path = `/cardapio/${req.params.categoria}?itemAdicionado=true`;
+
+        res.redirect(path);
 
       });
     });

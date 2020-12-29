@@ -13,7 +13,12 @@ router.get('/', (req, res, next) => {
 
 router.get('/:categoria', (req, res, next) => {
   const cardapioDAO = new Cardapio();
-  cardapioDAO.getCardapio(req, res);
+
+  if (!req.query.id){
+    cardapioDAO.getCardapio(req, res);
+  } else {
+    cardapioDAO.adicionarItemAoCarrinho(req, res);
+  }
 });
 
 router.get('/:categoria/:id_prato', (req, res, next) => {
