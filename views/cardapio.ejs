@@ -8,6 +8,12 @@
     <div class="container">
       <%- include('./common/menu') %>
 
+      <% if (itemAdicionadoAoCarrinho != ''){ %>
+        <div class="alert alert-success mt-4" role="alert">
+          <%= itemAdicionadoAoCarrinho %> adicionado ao carrinho.
+        </div>
+      <% } %>
+
       <% if (params.categoria) {%>
         <div class="cardapio-categoria mt-4">
         <h4 class="text-primary border-bottom border-primary"><%= params.categoria %></h4>

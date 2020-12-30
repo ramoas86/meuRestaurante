@@ -4,40 +4,6 @@ const dbName = 'meuRestaurante';
 
 const ObjectId = require('mongodb').ObjectId;
 
-function gerarArrayCardapioCategoria(result){
-  /*
-  tratar a URL das fotos para remover 'uploads/'.
-  */
-  for (let item of result){
-    let newFotoUrl = item.fotoUrl.slice(7, item.fotoUrl.length);
-    item.fotoUrl = newFotoUrl;
-  }
-
-  /*
-  criar matrix para renderização na view.
-  */
-  const cardapioCatArray = [];
-  let arrayLinha = [];
-  let indexColeta = 2;
-
-  for (let i = 0; i < result.length; i++) {
-    if (i <= indexColeta){
-      arrayLinha.push(result[i]);
-      if (i == indexColeta){
-        cardapioCatArray.push(arrayLinha);
-        arrayLinha = [];
-        indexColeta += 3;
-      }
-    }
-  }
-
-  if (arrayLinha.length > 0){
-    cardapioCatArray.push(arrayLinha);
-  }
-
-  return cardapioCatArray
-}
-
 class Cardapio {
   constructor() {
     this.categorias = [
@@ -50,7 +16,41 @@ class Cardapio {
     ];
   }
 
-  getCardapio(req, res){
+  gerarArrayCardapioCategoria(result){
+    /*
+    tratar a URL das fotos para remover 'uploads/'.
+    */
+    for (let item of result){
+      let newFotoUrl = item.fotoUrl.slice(7, item.fotoUrl.length);
+      item.fotoUrl = newFotoUrl;
+    }
+
+    /*
+    criar matrix para renderização na view.
+    */
+    const cardapioCatArray = [];
+    let arrayLinha = [];
+    let indexColeta = 2;
+
+    for (let i = 0; i < result.length; i++) {
+      if (i <= indexColeta){
+        arrayLinha.push(result[i]);
+        if (i == indexColeta){
+          cardapioCatArray.push(arrayLinha);
+          arrayLinha = [];
+          indexColeta += 3;
+        }
+      }
+    }
+
+    if (arrayLinha.length > 0){
+      cardapioCatArray.push(arrayLinha);
+    }
+
+    return cardapioCatArray
+  }
+
+  getCardapio(req, res, itemAdicionadoAoCarrinho=''){
 
     MongoClient.connect(url, (err, client) => {
       if (err) throw err;
@@ -62,13 +62,16 @@ class Cardapio {
       db.collection('cardapio').find({categoria: categoriaParam}).toArray((err, result) => {
         if (err) throw err;
 
-        let cardapioCatArray = gerarArrayCardapioCategoria(result);
+        let cardapioCatArray = this.gerarArrayCardapioCategoria(result);
 
         client.close();
+
+        console.log(itemAdicionadoAoCarrinho);
 
         res.render('cardapio', {
           params: req.params,
           itensCartegoriaCardapio: cardapioCatArray,
+          itemAdicionadoAoCarrinho: itemAdicionadoAoCarrinho,
         });
 
       });
@@ -126,9 +129,7 @@ class Cardapio {
 
         console.log(req.session);
 
-        let path = `/cardapio/${req.params.categoria}?itemAdicionado=true`;
-
-        res.redirect(path);
+        this.getCardapio(req, res, result[0].nome);
 
       });
     });

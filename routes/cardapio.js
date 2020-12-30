@@ -7,7 +7,8 @@ router.get('/', (req, res, next) => {
   const cardapioDAO = new Cardapio();
   res.render('cardapio', {
     params: req.params,
-    categoriasDAO: cardapioDAO.categorias
+    categoriasDAO: cardapioDAO.categorias,
+    itemAdicionadoAoCarrinho: '',
   });
 });
 
