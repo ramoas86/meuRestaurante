@@ -7,7 +7,7 @@ class Noticias {
 
   }
 
-  getNoticias(res){
+  getNoticias(req, res){
 
     MongoClient.connect(url, (err, client) => {
       if (err) throw err;
@@ -41,7 +41,11 @@ class Noticias {
 
         client.close();
         //console.log(result);
-        res.render('index', {noticias: noticiasArray});
+        res.render('index', {
+          noticias: noticiasArray,
+          carrinho: req.session.usuario.carrinho
+        });
+
       });
     });
   }

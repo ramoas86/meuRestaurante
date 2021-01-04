@@ -6,7 +6,7 @@ const Noticias = require('../models/Noticias');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const noticiasDAO = new Noticias();
-  noticiasDAO.getNoticias(res);
+  noticiasDAO.getNoticias(req, res);
 });
 
 module.exports = router;

@@ -6,9 +6,17 @@
     </head>
   </head>
   <body>
-    <div class="container">
 
+    <%- include('./common/carrinho') %>
+
+    <div class="container">
       <%- include('./common/menu') %>
+
+      <% if (itemAdicionadoAoCarrinho != ''){ %>
+        <div class="alert alert-success mt-4" role="alert">
+          <%= itemAdicionadoAoCarrinho %> adicionado ao carrinho.
+        </div>
+      <% } %>
 
       <div class="mt-4 d-flex flex-row">
         <div class="w-50">
@@ -18,7 +26,7 @@
           <h4 class="mt-4"><%= nome %></h4>
           <h5 class="mt-4 mb-4">Valor: R$<%= valor %>,<%= valorCentavos1 %><%= valorCentavos2 %></h5>
           <pre><%= descricao %></pre>
-          <a href="#" class="btn btn-success mb-2">
+          <a href="/cardapio/<%= categoria %>/<%= id %>?itemAdicionado=true" class="btn btn-success mb-2">
             <img src="/images/icons/cart-plus.svg" width="20" height="20" title="cart">
           </a>
         </div>

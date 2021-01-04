@@ -1,0 +1,21 @@
+<div class="caarrinho">
+  <%
+    let itensNoCarrinho = false;
+
+    if (carrinho.length > 0){
+      itensNoCarrinho = true;
+    }
+  %>
+
+  <div class="position-fixed">
+    <a class="btn bg-primary rounded-circle" style="width:100px;" href="#">
+      <% if (!itensNoCarrinho){ %>
+        <img src="/images/icons/cart.svg" style="margin-top:20px;" width="32" height="32" title="cart">
+      <% } else { %>
+        <img src="/images/icons/cart-fill.svg" style="margin-top:20px;" width="32" height="32" title="cart">
+      <% } %>
+
+      <p><%= carrinho.length %></p>
+    </a>
+  </div>
+</div>
