@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 let inserirNoticiaRouter = require('./routes/inserirNoticia');
 let cardapioRouter = require('./routes/cardapio');
 let inserirItemCardapioRouter = require('./routes/inserirItemCardapio');
+let adicionarItemAoCarrinhoRouter = require('./routes/adicionarItemAoCarrinho');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use('/users', usersRouter);
 app.use('/inserir_noticia', inserirNoticiaRouter);
 app.use('/cardapio', cardapioRouter);
 app.use('/inserir_item_cardapio', inserirItemCardapioRouter);
+app.use('/adicionar_item_carrinho', adicionarItemAoCarrinhoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -123,7 +123,7 @@ class Cardapio {
 
       const db = client.db(dbName);
 
-      const id_prato = ObjectId(req.query.id);
+      const id_prato = ObjectId(req.query.item_id);
 
       db.collection('cardapio').find({_id: id_prato}).toArray((err, result) => {
         if (err) throw err;
@@ -132,45 +132,9 @@ class Cardapio {
 
         req.session.usuario.carrinho.push(result[0]);
 
-        this.getCardapio(req, res, result[0].nome);
-
-      });
-    });
-  }
-
-  adicionarItemAoCarrinho_2(req, res){
-
-    MongoClient.connect(url, (err, client) => {
-      if (err) throw err;
-
-      const db = client.db(dbName);
-
-      const id_prato = ObjectId(req.params.id_prato);
-
-      db.collection('cardapio').find({_id: id_prato}).toArray((err, result) => {
-        if (err) throw err;
-
-        client.close();
-
-        req.session.usuario.carrinho.push(result[0]);
-
-        /*
-        tratar a URL das fotos para remover 'uploads/'.
-        */
-        let newFotoUrl = result[0].fotoUrl.slice(7, result[0].fotoUrl.length);
-        result[0].fotoUrl = newFotoUrl;
-
-        res.render('itemCardapioDetalhes', {
-          fotoUrl: result[0].fotoUrl,
-          id: result[0]._id,
-          nome: result[0].nome,
-          valor: result[0].valor,
-          valorCentavos1: result[0].valorCentavos1,
-          valorCentavos2: result[0].valorCentavos2,
-          categoria: result[0].categoria,
-          descricao: result[0].descricao,
+        res.send({
           carrinho: req.session.usuario.carrinho,
-          itemAdicionadoAoCarrinho: result[0].nome,
+          nomeDoItemAdicionado: result[0].nome,
         });
 
       });

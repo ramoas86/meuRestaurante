@@ -15,22 +15,12 @@ router.get('/', (req, res, next) => {
 
 router.get('/:categoria', (req, res, next) => {
   const cardapioDAO = new Cardapio();
-
-  if (!req.query.id){
-    cardapioDAO.getCardapio(req, res);
-  } else {
-    cardapioDAO.adicionarItemAoCarrinho(req, res);
-  }
+  cardapioDAO.getCardapio(req, res);
 });
 
 router.get('/:categoria/:id_prato', (req, res, next) => {
   const cardapioDAO = new Cardapio();
-
-  if (!req.query.itemAdicionado){
-    cardapioDAO.getItemCardapio(req, res);
-  } else {
-    cardapioDAO.adicionarItemAoCarrinho_2(req, res);
-  }
+  cardapioDAO.getItemCardapio(req, res);
 });
 
 module.exports = router;
