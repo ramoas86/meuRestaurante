@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%- include('common/headContent', {titulo: 'Meu restaurante'}) %>
+  </head>
+  <body>
+    <%- include('./common/carrinhoIcon') %>
+
+    <div class="container">
+      <%- include('./common/menu') %>
+
+      <% if (carrinho.length == 0){ %>
+        <h3>Seu carrinho está vazio</h3>
+      <% } else { %>
+
+        <div class="carrinho container mt-4 mb-4" style="width:500px;">
+          <% for (let item of carrinho){ %>
+            <div class="row mb-2">
+              <div class="col">
+                <img src="<%= item.fotoUrl %>" width="80" height="80" class="img-fluid mt-4">
+                <p class="mt-2" style="font-size:20px"> <strong> <%= item.nome %> </strong> </p>
+                <p>R$ <%= item.valor %>,<%= item.valorCentavos1 %><%= item.valorCentavos2 %></p>
+              </div>
+
+              <div class="col">
+                <button type="button" class="btn btn-danger mt-4 me-4">Remover</button>
+              </div>
+            </div>
+          <% } %>
+
+          <div class="row border-3 border-top w-50">
+            <div class="col">
+              <h4 class="mt-2" style="font-weight:bold">Total: <%= total %></h4>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+              <button type="button" class="btn btn-success">Ir para o caixa</button>
+            </div>
+          </div>
+        </div>
+
+      <% } %>
+    </div>
+
+  </body>
+</html>

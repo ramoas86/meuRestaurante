@@ -130,6 +130,12 @@ class Cardapio {
 
         client.close();
 
+        /*
+        tratar a URL das fotos para remover 'uploads/'.
+        */
+        let newFotoUrl = result[0].fotoUrl.slice(7, result[0].fotoUrl.length);
+        result[0].fotoUrl = newFotoUrl;
+
         req.session.usuario.carrinho.push(result[0]);
 
         res.send({
@@ -160,7 +166,6 @@ class Cardapio {
           }
        ], (err, result) => {
          if (err) throw err;
-         //console.log(result);
 
          res.render('inserirItemCardapio', {
            msg:{
