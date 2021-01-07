@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <%- include('common/headContent', {titulo: 'Meu restaurante'}) %>
+    <script type="text/javascript" src="/javascripts/removerItem.js"> </script>
   </head>
   <body>
     <%- include('./common/carrinhoIcon') %>
@@ -13,9 +14,15 @@
         <h3>Seu carrinho está vazio</h3>
       <% } else { %>
 
-        <div class="carrinho container mt-4 mb-4" style="width:500px;">
+        <% if (itemRemovido != '') {%>
+          <div id="alert_item_adicionado" class="alert alert-success mt-4" role="alert">
+            <%= itemRemovido %> removido do carrinho.
+          </div>
+        <% } %>
+
+        <div class="container mt-4 mb-4" style="width:500px;">
           <% for (let item of carrinho){ %>
-            <div class="row mb-2">
+            <div id="<%= item._id %>" class="row mb-2">
               <div class="col">
                 <img src="<%= item.fotoUrl %>" width="80" height="80" class="img-fluid mt-4">
                 <p class="mt-2" style="font-size:20px"> <strong> <%= item.nome %> </strong> </p>
@@ -23,7 +30,7 @@
               </div>
 
               <div class="col">
-                <button type="button" class="btn btn-danger mt-4 me-4">Remover</button>
+                <a class="btn btn-danger mt-4 me-4" href="/remover_item_carrinho?item_id=<%= item._id %>">Remover</a>
               </div>
             </div>
           <% } %>
