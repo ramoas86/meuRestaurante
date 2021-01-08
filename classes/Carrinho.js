@@ -22,12 +22,16 @@ class Carrinho {
 
     for (let i = 0; i < carrinho.length; i++){
       if (carrinho[i]._id == id_item){
-        this.itemASerRemovido = carrinho[i].nome;
+        itemNome = carrinho[i].nome;
         break;
       }
     }
 
     return itemNome;
+  }
+
+  calcularTotalDeItensNoCarrinho(req){
+    return req.session.usuario.carrinho.length;
   }
 
   calcularTotal(req){

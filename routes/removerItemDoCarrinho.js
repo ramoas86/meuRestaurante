@@ -7,14 +7,15 @@ router.get('/', (req, res, next) => {
 
   const carrinhoObj = new Carrinho();
 
-  const itemNome = carrinhoObj.getNomeItemASerRemovido(req);
+  const nomeItemRemovido = carrinhoObj.getNomeItemASerRemovido(req);
   carrinhoObj.removerItem(req);
   carrinhoObj.calcularTotal(req);
+  const totalDeItensNoCarrinho = carrinhoObj.calcularTotalDeItensNoCarrinho(req);
 
-  res.render("carrinho", {
-    carrinho: req.session.usuario.carrinho,
+  res.send({
+    nomeItemRemovido: nomeItemRemovido,
     total: req.session.usuario.totalDoCarrinho,
-    itemRemovido: itemNome,
+    totalDeItensNoCarrinho: totalDeItensNoCarrinho,
   });
 
 });

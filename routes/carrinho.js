@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
   res.render("carrinho", {
     carrinho: req.session.usuario.carrinho,
     total: req.session.usuario.totalDoCarrinho,
-    itemRemovido: ''
+    itemRemovido: '',
   });
 });
 
