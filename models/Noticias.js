@@ -43,7 +43,7 @@ class Noticias {
         //console.log(result);
         res.render('index', {
           noticias: noticiasArray,
-          carrinho: req.session.usuario.carrinho
+          usuario: req.session.usuario,
         });
 
       });

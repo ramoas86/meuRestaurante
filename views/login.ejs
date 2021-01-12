@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%- include('common/headContent', {titulo: 'Meu restaurante'}) %>
+  </head>
+  <body>
+    <%- include('./common/carrinhoIcon') %>
+
+    <div class="container">
+      <%- include('./common/menu') %>
+
+      <div class="texto">
+        <h3>Atenção!</h3>
+        <p>Só é possível finalizar compras se você tiver uma conta.</p>
+        <p>Não posuí uma conta conosco? Clique <a href='#'>aqui</a></p>
+      </div>
+
+      <div class="form">
+        <form>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+          </div>
+          <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>

@@ -10,7 +10,7 @@ router.get("/", (req, res, next) => {
   carrinhoObj.calcularTotal(req);
 
   res.render("carrinho", {
-    carrinho: req.session.usuario.carrinho,
+    usuario: req.session.usuario,
     total: req.session.usuario.totalDoCarrinho,
     itemRemovido: '',
   });

@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
   res.render('cardapio', {
     params: req.params,
     categoriasDAO: cardapioDAO.categorias,
-    carrinho: req.session.usuario.carrinho,
+    usuario: req.session.usuario,
     itemAdicionadoAoCarrinho: '',
   });
 });

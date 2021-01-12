@@ -13,6 +13,7 @@ let inserirItemCardapioRouter = require('./routes/inserirItemCardapio');
 let adicionarItemAoCarrinhoRouter = require('./routes/adicionarItemAoCarrinho');
 let removerItemDoCarrinhoRouter = require('./routes/removerItemDoCarrinho');
 let carrinhoRouter = require('./routes/carrinho');
+let loginRouter = require('./routes/login');
 
 var app = express();
 
@@ -26,10 +27,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'uploads')));
+
+//const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hora
 app.use(session({
   secret: 'session_secret',
   resave: false,
   saveUninitialized: true,
+  name: 'id_session',
+  /*cookie: {
+    secure: true,
+    httpOnly: true,
+    domain: 'meurestaurante.com',
+    path: '/',
+    expires: expiryDate,
+  }*/
 }));
 
 //session
@@ -37,7 +48,7 @@ app.use((req, res, next) => {
   if (!req.session.usuario){
     req.session.usuario = {
       id: '',
-      nome: '',
+      nome: 'anônimo',
       totalDoCarrinho: '',
       carrinho: [],
     }
@@ -54,6 +65,7 @@ app.use('/inserir_item_cardapio', inserirItemCardapioRouter);
 app.use('/adicionar_item_carrinho', adicionarItemAoCarrinhoRouter);
 app.use('/remover_item_carrinho', removerItemDoCarrinhoRouter);
 app.use('/carrinho', carrinhoRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -10,7 +10,7 @@
     <div class="container">
       <%- include('./common/menu') %>
 
-      <% if (carrinho.length == 0){ %>
+      <% if (usuario.carrinho.length == 0){ %>
         <h3 class="d-flex justify-content-center align-middle" style="margin-top: 25%;">Seu carrinho está vazio</h3>
       <% } else { %>
 
@@ -19,7 +19,7 @@
         </div>
 
         <div id="itens_carrinho" class="container mt-4 mb-4" style="width:500px;">
-          <% for (let item of carrinho){ %>
+          <% for (let item of usuario.carrinho){ %>
             <div id="<%= item._id %>" class="row mb-2">
               <div class="col">
                 <img src="<%= item.fotoUrl %>" width="80" height="80" class="img-fluid mt-4">
@@ -43,7 +43,11 @@
 
           <div id="btn_caixa" class="row mt-4">
             <div class="col">
-              <button type="button" class="btn btn-success">Ir para o caixa</button>
+              <% if (usuario.id == ''){ %>
+                <a href="/login" class="btn btn-success">Ir para o caixa</a>
+              <% } else { %>
+                <a href="#" class="btn btn-success">Ir para o caixa</a>
+              <% } %>
             </div>
           </div>
         </div>

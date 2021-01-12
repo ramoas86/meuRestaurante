@@ -2,12 +2,12 @@
 
   <div class="position-fixed">
     <a class="btn bg-primary rounded-circle" style="width:100px;" href="/carrinho">
-      <% if (carrinho.length == 0) {%>
+      <% if (usuario.carrinho.length == 0) {%>
         <img id="imagemCarrinho" src="/images/icons/cart.svg" style="margin-top:20px;" width="32" height="32" title="cart">
       <% } else { %>
         <img id="imagemCarrinho" src="/images/icons/cart-fill.svg" style="margin-top:20px;" width="32" height="32" title="cart">
       <% } %>
-      <p id="quantidadeCarrinho"><%= carrinho.length %></p>
+      <p id="quantidadeCarrinho"><%= usuario.carrinho.length %></p>
     </a>
   </div>
 </div>

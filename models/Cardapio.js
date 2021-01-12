@@ -71,7 +71,7 @@ class Cardapio {
         res.render('cardapio', {
           params: req.params,
           itensCartegoriaCardapio: cardapioCatArray,
-          carrinho: req.session.usuario.carrinho,
+          usuario: req.session.usuario,
           itemAdicionadoAoCarrinho: itemAdicionadoAoCarrinho,
         });
 
@@ -108,7 +108,7 @@ class Cardapio {
           valorCentavos2: result[0].valorCentavos2,
           categoria: result[0].categoria,
           descricao: result[0].descricao,
-          carrinho: req.session.usuario.carrinho,
+          usuario: req.session.usuario,
           itemAdicionadoAoCarrinho: '',
         });
 
