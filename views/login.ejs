@@ -9,24 +9,39 @@
     <div class="container">
       <%- include('./common/menu') %>
 
-      <div class="texto">
-        <h3>Atenção!</h3>
-        <p>Só é possível finalizar compras se você tiver uma conta.</p>
-        <p>Não posuí uma conta conosco? Clique <a href='#'>aqui</a></p>
-      </div>
+      <div class="d-flex flex-column align-items-center">
 
-      <div class="form">
-        <form>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
-          </div>
-          <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senha" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Entrar</button>
-        </form>
+        <div class="d-flex flex-column mt-4">
+            <div class="d-flex flex-row align-self-center">
+              <h3>Atenção!</h3>
+            </div>
+            <div class="d-flex flex-row">
+              <p>Só é possível finalizar compras se você tiver uma conta.</p>
+            </div>
+            <div class="d-flex flex-row">
+              <p>Não posuí uma conta conosco? Clique <a href='/cadastro'>aqui</a></p>
+            </div>
+        </div>
+
+        <div class="form w-25 pt-4 pb-4 ps-4 pe-4 border border-3 rounded align-middle">
+
+          <h3 class="d-flex justify-content-center mb-4">Login</h3>
+
+          <form>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+              <label for="senha" class="form-label">Senha</label>
+              <input type="password" class="form-control" id="senha" required>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+          </form>
+        </div>
+
       </div>
 
     </div>

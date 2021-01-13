@@ -14,6 +14,7 @@ let adicionarItemAoCarrinhoRouter = require('./routes/adicionarItemAoCarrinho');
 let removerItemDoCarrinhoRouter = require('./routes/removerItemDoCarrinho');
 let carrinhoRouter = require('./routes/carrinho');
 let loginRouter = require('./routes/login');
+let cadastroRouter = require('./routes/cadastro');
 
 var app = express();
 
@@ -49,7 +50,16 @@ app.use((req, res, next) => {
     req.session.usuario = {
       id: '',
       nome: 'anônimo',
+      email: '',
+      senha: '',
+      endereço: {
+        rua: '',
+        numero: '',
+        bairro: '',
+        cep: '',
+      },
       totalDoCarrinho: '',
+      cartoesCadastrados: [],
       carrinho: [],
     }
   }
@@ -66,6 +76,7 @@ app.use('/adicionar_item_carrinho', adicionarItemAoCarrinhoRouter);
 app.use('/remover_item_carrinho', removerItemDoCarrinhoRouter);
 app.use('/carrinho', carrinhoRouter);
 app.use('/login', loginRouter);
+app.use('/cadastro', cadastroRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
