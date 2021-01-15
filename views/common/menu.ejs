@@ -10,8 +10,14 @@
     <li class="nav-item">
       <a class="nav-link fs-5" href="#">Contato</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link fs-5" href="/login">Minha Conta</a>
-    </li>
+    <% if (usuario.id == '') {%>
+      <li class="nav-item">
+        <a class="nav-link fs-5" href="/login">Login</a>
+      </li>
+    <% } else { %>
+      <li class="nav-item">
+        <a class="nav-link fs-5" href="/area_cliente">Minha Conta</a>
+      </li>
+    <% } %>
   </ul>
 </div>

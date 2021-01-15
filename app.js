@@ -15,6 +15,7 @@ let removerItemDoCarrinhoRouter = require('./routes/removerItemDoCarrinho');
 let carrinhoRouter = require('./routes/carrinho');
 let loginRouter = require('./routes/login');
 let cadastroRouter = require('./routes/cadastro');
+let areaClienteRouter = require('./routes/areaCliente');
 
 var app = express();
 
@@ -29,19 +30,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'uploads')));
 
-//const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hora
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hora
 app.use(session({
   secret: 'session_secret',
   resave: false,
   saveUninitialized: true,
   name: 'id_session',
-  /*cookie: {
-    secure: true,
-    httpOnly: true,
-    domain: 'meurestaurante.com',
+  cookie: {
+    secure: false,
+    httpOnly: false,
+    //domain: 'meurestaurante.com',
     path: '/',
     expires: expiryDate,
-  }*/
+  }
 }));
 
 //session
@@ -77,6 +78,7 @@ app.use('/remover_item_carrinho', removerItemDoCarrinhoRouter);
 app.use('/carrinho', carrinhoRouter);
 app.use('/login', loginRouter);
 app.use('/cadastro', cadastroRouter);
+app.use('/area_cliente', areaClienteRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

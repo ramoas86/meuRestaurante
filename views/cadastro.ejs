@@ -10,28 +10,34 @@
 
       <%- include('./common/menu') %>
 
+      <% if (msg != '') { %>
+        <div class="alert alert-danger mt-4" role="alert">
+          <%= msg %>
+        </div>
+      <% } %>
+
       <h3 class="text-center mt-4">Cadastro</h3>
 
-      <form class="d-flex flex-column align-items-center mt-4">
+      <form method="post" action="/cadastro" enctype="application/x-www-form-urlencoded" class="d-flex flex-column align-items-center mt-4">
 
         <div class="mb-3 w-50">
           <label class="form-label">Nome</label>
-          <input type="text" class="form-control" required>
+          <input type="text" name="nome" class="form-control" value='<%= campos.nome %>' required>
         </div>
 
         <div class="mb-3 w-50">
           <label class="form-label">Email</label>
-          <input type="email" class="form-control" required>
+          <input type="email" name="email" class="form-control" value='<%= campos.email %>' required>
         </div>
 
         <div class="mb-3 w-50">
           <label class="form-label">Senha</label>
-          <input type="password" class="form-control" required>
+          <input type="password" name="senha" class="form-control" value='<%= campos.senha %>' required>
         </div>
 
         <div class="mb-3 w-50">
           <label class="form-label">Repetir senha</label>
-          <input type="password" class="form-control" required>
+          <input type="password" name="senha_r" class="form-control" value='<%= campos.senha_r %>' required>
         </div>
 
         <button type="submit" class="btn btn-primary">Cadastrar</button>
