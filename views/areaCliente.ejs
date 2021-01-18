@@ -10,7 +10,33 @@
 
       <%- include('./common/menu') %>
 
-      <p><%= usuario.nome %></p>
+      <div class="d-flex flex-column justify-content-center align-items-center">
+
+        <div id="cliente_dados" class="d-flex flex-column border border-2 rounded pt-4 pb-4 ps-4 pe-4 mt-4 mb-4 w-50">
+
+          <h3 class="text-center">Dados do cliente</h3>
+
+          <h5>Nome:</h5>
+          <p class="ms-4"><%= usuario.nome %></p>
+          <h5>Email:</h5>
+          <p class="ms-4"><%= usuario.email %></p>
+
+          <% if (usuario.endereco.rua != '') {%>
+            <h5>Endereço de entrega:</h5>
+            <h6 class="ms-4">Rua: <%= usuario.endereco.rua%></h6>
+            <h6 class="ms-4">Numero: <%= usuario.endereco.numero%></h6>
+            <h6 class="ms-4">Bairro: <%= usuario.endereco.bairro%></h6>
+            <h6 class="ms-4">CEP: <%= usuario.endereco.cep%></h6>
+          <% } %>
+
+        </div>
+
+        <p> <a href="#">Alterar dados do usuário</a> </p>
+        <p> <a href="#">Alterar senha</a> </p>
+
+        <a href="/area_cliente/sair/sim" class="btn btn-primary mb-4">Sair</a>
+
+      </div>
 
     </div>
 

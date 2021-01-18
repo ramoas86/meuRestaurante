@@ -6,6 +6,7 @@ router.get('/', (req, res, next) => {
   res.render('login',{
     usuario: req.session.usuario,
     carrinho: req.session.usuario.carrinho,
+    msg: {},
   });
 });
 

@@ -42,8 +42,6 @@ class Clientes {
 
         client.close();
 
-        console.log(result);
-
         res.render('areaCliente', {
           usuario: req.session.usuario,
         });
@@ -64,8 +62,6 @@ class Clientes {
 
         client.close();
 
-        console.log(result);
-
         if (result.length > 0){
           req.session.usuario.id = String(result[0]._id);
           req.session.usuario.nome = String(result[0].nome);
@@ -76,7 +72,15 @@ class Clientes {
             usuario: req.session.usuario,
           });
         } else {
-          res.send('usuário não encontrado.');
+          res.render('login',{
+            usuario: req.session.usuario,
+            carrinho: req.session.usuario.carrinho,
+            msg: {
+              usuarioNaoCadastrado: 'Usuário não encontrado. E-mail ou senha não conferem.',
+              email: body.email,
+              senha: body.senha,
+            },
+          });
         }
 
       });

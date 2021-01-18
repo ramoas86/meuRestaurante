@@ -53,7 +53,7 @@ app.use((req, res, next) => {
       nome: 'anônimo',
       email: '',
       senha: '',
-      endereço: {
+      endereco: {
         rua: '',
         numero: '',
         bairro: '',
