@@ -16,6 +16,8 @@ let carrinhoRouter = require('./routes/carrinho');
 let loginRouter = require('./routes/login');
 let cadastroRouter = require('./routes/cadastro');
 let areaClienteRouter = require('./routes/areaCliente');
+let alterarDadosUsuarioRouter = require('./routes/alterarDadosUsuario');
+let alterarSenhaRouter = require('./routes/alterarSenha');
 
 var app = express();
 
@@ -79,6 +81,8 @@ app.use('/carrinho', carrinhoRouter);
 app.use('/login', loginRouter);
 app.use('/cadastro', cadastroRouter);
 app.use('/area_cliente', areaClienteRouter);
+app.use('/alterar_dados', alterarDadosUsuarioRouter);
+app.use('/alterar_senha', alterarSenhaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

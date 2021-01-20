@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%- include('common/headContent', {titulo: 'Meu restaurante'}) %>
+  </head>
+  <body>
+    <%- include('./common/carrinhoIcon') %>
+
+    <div class="container">
+
+      <%- include('./common/menu') %>
+
+      <% if (msg.sucesso) { %>
+        <div class="alert alert-success mt-4" role="alert">
+          <%= msg.sucesso %>
+        </div>
+      <% } %>
+
+      <div id="form">
+
+        <form method="post" action="/alterar_senha" class="d-flex flex-column mt-4 align-items-center">
+          <div class="mb-3">
+            <label class="form-label">Senha atual</label>
+            <input type="password" class="form-control" id="senhaAtual" name="senhaAtual" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nova senha</label>
+            <input type="password" class="form-control" id="senhaNova" name="senhaNova" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Repetir nova senha</label>
+            <input type="password" class="form-control" id="senhaRepetir" name="senhaRepetir" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary mb-4">Enviar</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>
