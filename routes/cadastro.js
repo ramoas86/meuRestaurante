@@ -5,24 +5,14 @@ const Clientes = require('../models/Clientes');
 router.get('/', (req, res, next) => {
   res.render('cadastro', {
     usuario: req.session.usuario,
-    msg: '',
+    msg: {},
     campos: {},
   });
 })
 
 router.post('/', (req, res, next) => {
   const clientes = new Clientes();
-  const retorno = clientes.checarDados(req, res);
-
-  if (retorno.erro){
-    res.render('cadastro', {
-      usuario: req.session.usuario,
-      msg: retorno.erro,
-      campos: retorno.campos
-    });
-  } else {
-    clientes.inserirDados(req, res);
-  }
+  clientes.checarDados(req, res);
 });
 
 module.exports = router;

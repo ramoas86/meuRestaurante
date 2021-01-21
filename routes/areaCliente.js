@@ -31,9 +31,4 @@ router.get('/sair/:valor', (req, res, next) => {
   }
 });
 
-router.post('/', (req, res, next) => {
-  const clientes = new Clientes();
-  clientes.logar(req, res);
-});
-
 module.exports = router;

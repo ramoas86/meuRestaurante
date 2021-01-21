@@ -10,9 +10,15 @@
 
       <%- include('./common/menu') %>
 
-      <% if (msg != '') { %>
+      <% if (msg.erro) { %>
         <div class="alert alert-danger mt-4" role="alert">
-          <%= msg %>
+          <%= msg.erro %>
+        </div>
+      <% } %>
+
+      <% if (msg.usuarioCadastrado) { %>
+        <div class="alert alert-success mt-4" role="alert">
+          <%= msg.usuarioCadastrado %>
         </div>
       <% } %>
 
