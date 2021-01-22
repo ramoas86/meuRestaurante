@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const clientes = new Clientes();
-  
+  clientes.checarSenha(req, res);
 });
 
 module.exports = router;

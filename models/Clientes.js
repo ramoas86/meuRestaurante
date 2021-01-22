@@ -10,7 +10,10 @@ class Clientes {
     this.mensagens = {
       erroSenha: "Erro: Campos 'senha' e 'repetir senha' não são identicos.",
       erroUsuarioJaCadastrado: "Erro: Usuário já cadastrado.",
+      erroSenhaInvalida: "Erro: senha atual inválida.",
+      erroSenhaNovaInvalida: "Erro: Campos 'nova senha' e 'repetir nova senha' não são identicos.",
       usuarioCadastrado: "Usuário cadastrado com sucesso.",
+      senhaAlteradaComSucesso: "Senha alterada com sucesso."
     };
   }
 
@@ -191,7 +194,6 @@ class Clientes {
         {
           $set: {
             nome: body.nome,
-            email: body.email,
             endereco: {
               rua: body.rua,
               numero: body.numero,
@@ -251,6 +253,71 @@ class Clientes {
          };
 
          res.redirect('/');
+
+         client.close();
+       });
+    });
+  }
+
+  checarSenha(req, res){
+    MongoClient.connect(url, (err, client) => {
+      if (err) throw err;
+
+      const db = client.db(dbName);
+      const id = ObjectId(req.session.usuario.id);
+      const body = req.body;
+
+      db.collection('clientes').find({ _id: id }).toArray((err, result) => {
+        if (err) throw err;
+
+        if (body.senhaAtual != result[0].senha){
+          res.render('alterarSenha', {
+            usuario: req.session.usuario,
+            msg: {
+              erro: this.mensagens.erroSenhaInvalida
+            }
+          });
+        } else if (body.senhaNova != body.senhaNovaRepetir){
+          res.render('alterarSenha', {
+            usuario: req.session.usuario,
+            msg: {
+              erro: this.mensagens.erroSenhaNovaInvalida
+            }
+          });
+        } else {
+          this.alterarSenha(req, res);
+        }
+
+        client.close();
+
+      });
+    });
+  }
+
+  alterarSenha(req, res){
+    MongoClient.connect(url, (err, client) => {
+      if (err) throw err;
+
+      const db = client.db(dbName);
+      const body = req.body;
+
+      db.collection('clientes').updateOne(
+        {
+          _id: ObjectId(req.session.usuario.id),
+        },
+        {
+          $set: {
+            senha: body.senhaNova,
+          }
+        }, (err, result) => {
+         if (err) throw err;
+
+         res.render('alterarSenha', {
+           usuario: req.session.usuario,
+           msg: {
+             sucesso: this.mensagens.senhaAlteradaComSucesso
+           }
+         });
 
          client.close();
        });
