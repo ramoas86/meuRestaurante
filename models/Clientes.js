@@ -27,7 +27,7 @@ class Clientes {
         client.close();
 
         res.render('areaCliente', {
-          usuario: result[0];
+          usuario: req.session.usuario,
         });
 
       });
@@ -57,6 +57,10 @@ class Clientes {
           req.session.usuario.endereco.numero = String(result[0].endereco.numero);
           req.session.usuario.endereco.bairro = String(result[0].endereco.bairro);
           req.session.usuario.endereco.cep = String(result[0].endereco.cep);
+
+          req.session.usuario.totalDoCarrinho = String(result[0].totalDoCarrinho);
+          req.session.usuario.cartoesCadastrados = result[0].cartoesCadastrados;
+          req.session.usuario.carrinho = result[0].carrinho;
 
           res.render('areaCliente', {
             usuario: req.session.usuario,
@@ -204,6 +208,49 @@ class Clientes {
              sucesso: 'Dados atualizados com sucesso.'
            }
          });
+
+         client.close();
+       });
+    });
+  }
+
+  atualizarDadosDoCarrrinho(req, res){
+
+    MongoClient.connect(url, (err, client) => {
+      if (err) throw err;
+
+      const db = client.db(dbName);
+      const body = req.body;
+
+      db.collection('clientes').updateOne(
+        {
+          _id: ObjectId(req.session.usuario.id),
+        },
+        {
+          $set: {
+            totalDoCarrinho: req.session.usuario.totalDoCarrinho,
+            carrinho: req.session.usuario.carrinho,
+          }
+        }, (err, result) => {
+         if (err) throw err;
+
+         req.session.usuario = {
+           id: '',
+           nome: 'anônimo',
+           email: '',
+           senha: '',
+           endereco: {
+             rua: '',
+             numero: '',
+             bairro: '',
+             cep: '',
+           },
+           totalDoCarrinho: '',
+           cartoesCadastrados: [],
+           carrinho: [],
+         };
+
+         res.redirect('/');
 
          client.close();
        });
