@@ -204,6 +204,12 @@ class Clientes {
         }, (err, result) => {
          if (err) throw err;
 
+         req.session.usuario.nome = body.nome;
+         req.session.usuario.endereco.rua = body.rua;
+         req.session.usuario.endereco.numero = body.numero;
+         req.session.usuario.endereco.bairro = body.bairro;
+         req.session.usuario.endereco.cep = body.cep;
+
          res.render('alterarDadosUsuario',{
            usuario: req.session.usuario,
            msg: {
