@@ -18,6 +18,7 @@ let cadastroRouter = require('./routes/cadastro');
 let areaClienteRouter = require('./routes/areaCliente');
 let alterarDadosUsuarioRouter = require('./routes/alterarDadosUsuario');
 let alterarSenhaRouter = require('./routes/alterarSenha');
+let caixaRouter = require('./routes/caixa');
 
 var app = express();
 
@@ -83,6 +84,7 @@ app.use('/cadastro', cadastroRouter);
 app.use('/area_cliente', areaClienteRouter);
 app.use('/alterar_dados', alterarDadosUsuarioRouter);
 app.use('/alterar_senha', alterarSenhaRouter);
+app.use('/caixa', caixaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

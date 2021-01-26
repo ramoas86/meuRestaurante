@@ -7,22 +7,11 @@
     <%- include('./common/carrinhoIcon') %>
 
     <div class="container">
-
       <%- include('./common/menu') %>
-
-      <% if (msg.sucesso) { %>
-        <div class="alert alert-success mt-4" role="alert">
-          <%= msg.sucesso %>
-        </div>
-      <% } %>
 
       <div id="form">
 
-        <form method="post" action="/alterar_dados" class="d-flex flex-column mt-4 align-items-center">
-          <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="<%= usuario.nome %>" required>
-          </div>
+        <form method="post" action="/caixa" class="d-flex flex-column mt-4 align-items-center">
           <div class="mt-5">
             <h5>Endereço:</h5>
           </div>
@@ -43,12 +32,31 @@
             <input type="text" class="form-control" id="cep" name="cep" value="<%= usuario.endereco.cep %>" required>
           </div>
 
-          <button type="submit" class="btn btn-primary mb-4">Enviar</button>
+          <div class="mt-5">
+            <h5>Dados do cartão:</h5>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nome (Como no cartão)</label>
+            <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Número</label>
+            <input type="text" class="form-control" id="numCartao" name="numCartao" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Validade</label>
+            <input type="date" class="form-control" id="valCartao" name="valCartao" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Código de segurança</label>
+            <input type="text" class="form-control" id="codSegCartao" name="codSegCartao" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary mb-4">Efetuar pagamento</button>
         </form>
 
       </div>
 
     </div>
-
   </body>
 </html>
